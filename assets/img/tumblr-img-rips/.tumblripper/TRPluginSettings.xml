@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-16"?>
+<TumblrSettings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <DoPhotos>true</DoPhotos>
+  <DoPhotoRaw>false</DoPhotoRaw>
+  <Username>talleykristian@gmail.com</Username>
+  <Password>Keewtal67*</Password>
+  <DoVideos>false</DoVideos>
+  <DoAudio>false</DoAudio>
+  <DoRename>false</DoRename>
+  <DoReblogs>true</DoReblogs>
+  <DoTags>false</DoTags>
+  <FilenameMask />
+  <IgnoreExtensions />
+  <LastTs>-1</LastTs>
+</TumblrSettings>
