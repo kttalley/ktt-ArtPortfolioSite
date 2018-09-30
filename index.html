@@ -6,12 +6,68 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-infinitescroll/2.0b2.120519/jquery.infinitescroll.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.2/masonry.pkgd.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.min.js"></script>
+    <script src="//unpkg.com/jscroll@#.#.#/dist/jquery.jscroll.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script src="../jquery.masonry.min.js"></script>
+    <script src="../js/jquery.infinitescroll.min.js"></script>
 
     <script src = "scripts/artPage-scripts.js"></script>
     <link rel="stylesheet" href="styling/artPage.css">
+<script>
+    $(function () {
+        $("#Page1").load("pages/page1.html");
+    });
+
+    // $(window).scroll(function () {
+    //     if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+    //         AddMoreContent();
+    //     }
+    // });
+    $( "body" ).click(function() {
+        alert(shit);
+});
+
+     $(function AddMoreContent(){
+        $("#Page2").load("pages/page2.html");
+      });
+
+      
+
+</script>
+
+<script>
+    var $grid = $('.grid').masonry({
+  columnWidth: 160,
+  itemSelector: '.grid-item'
+});
+    $('.append-button').on( 'click', function() {
+  var elems = [ getItemElement(), getItemElement(), getItemElement() ];
+
+// make jQuery object
+var $elems = $( elems );
+  $grid.append( $elems ).masonry( 'appended', $elems );
+});
+
+// create <div class="grid-item"></div>
+function getItemElement() {
+  var elem = document.createElement('div');
+  var wRand = Math.random();
+  var hRand = Math.random();
+  var widthClass = wRand > 0.8 ? 'grid-item--width3' : wRand > 0.6 ? 'grid-item--width2' : '';
+  var heightClass = hRand > 0.85 ? 'grid-item--height4' : hRand > 0.6 ? 'grid-item--height3' : hRand > 0.35 ? 'grid-item--height2' : '';
+  elem.className = 'grid-item ' + widthClass + ' ' + heightClass;
+  return elem;
+}
+
+
+</script>
+
 </head>
 
 <body>
+    
+        <!-- <embed width="100%" src="page1.html"> -->
     <div id="sideBar">
         <div id="title">
             <h1>KTT</h1>
@@ -25,25 +81,21 @@
             <p>illustration</p>
         </div>
     </div>
-    <div id='Masonry'>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item thumbnail"></div>
-        <div class="item medium"></div>
-        <div class="item"></div>
-        <div class="item large"></div>
-        <div class="item"></div>
-        <div class="item medium"></div>
-        <div class="item"></div>
-        <div class="item"></div>
-        <div class="item thumbnail"></div>
-        <div class="item medium"></div>
-        <div class="item"></div>
-        <div class="item large"></div>
-        <div class="item"></div>
-        <div class="item medium"></div>
+    <div class = "Masonry" id='Page1'>
+        
     </div>
+    <div class = "Masonry" id = 'Page2'>
 
+    </div>
+    
+    <div class="grid">
+    <div class="grid-item grid-item--width3"></div>
+    <div class="grid-item grid-item--height3"></div>
+    <div class="grid-item"></div>
+    <div class="grid-item grid-item--height2"></div>
+  </div>
+  
+  <p><button class="append-button">Append new items</button></p>
 
 
     <script src='scripts/masonry.pkgd.js'></script>
