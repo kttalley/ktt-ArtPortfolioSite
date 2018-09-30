@@ -1,38 +1,30 @@
-var container = document.querySelector('#masonry');
-var masonry = new Masonry(container, {
-  columnWidth: 50,
-  itemSelector: '.item'
+$(document).ready(function() {
+	var grid = $('.grid');
+
+	grid.masonry({
+		itemSelector: '.grid-item',
+		columnWidth: 200
+	});
+
+	grid.infinitescroll({
+		// Pagination element that will be hidden
+		navSelector: '#pagination',
+
+		// Next page link
+		nextSelector: '#pagination p a',
+
+		// Selector of items to retrieve
+		itemSelector: '.grid-item',
+
+		// Loading message
+		loadingText: 'Loading new items…'
+	},
+
+	// Function called once the elements are retrieved
+	function(new_elts) {
+		var elts = $(new_elts).css('opacity', 0);
+
+		elts.animate({opacity: 1});
+		grid.masonry('appended', elts);
+	});
 });
-
-
-
-var $container = $('#container');
-
-$container.imagesLoaded(function () {
-  $container.masonry({
-    itemSelector: '.box',
-    columnWidth: 100
-  });
-});
-
-$container.infinitescroll({
-  navSelector: '#page-nav',    // selector for the paged navigation 
-  nextSelector: '#page-nav a',  // selector for the NEXT link (to page 2)
-  itemSelector: '.box',     // selector for all items you'll retrieve
-  loading: {
-    finishedMsg: 'No more pages to load.',
-    img: 'http://i.imgur.com/6RMhx.gif'
-  }
-},
-  // trigger Masonry as a callback
-  function (newElements) {
-    // hide new items while they are loading
-    var $newElems = $(newElements).css({ opacity: 0 });
-    // ensure that images load before adding to masonry layout
-    $newElems.imagesLoaded(function () {
-      // show elems now they're ready
-      $newElems.animate({ opacity: 1 });
-      $container.masonry('appended', $newElems, true);
-    });
-  }
-);

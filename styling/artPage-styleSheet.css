@@ -1,0 +1,42 @@
+html {
+	box-sizing: border-box;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+body {
+	margin: 0;
+	background-color: #F0F0F0;
+	font-family: 'Liberation Sans', Arial, sans-serif;
+}
+
+h1 {
+	text-align: center;
+}
+
+.grid {
+	margin: 0 2em 2em;
+	padding: 1em;
+	background-color: #FFFFFF;
+}
+
+.grid-item {
+	padding: 15px;
+	width: 200px;
+}
+
+.grid-item-2 {
+	width: 400px;
+}
+
+.grid-item-3 {
+	width: 600px;
+}
+
+.grid-item p {
+	margin: 0;
+	padding: 0.5em;
+	background-color: #F0F0F0;
+}
