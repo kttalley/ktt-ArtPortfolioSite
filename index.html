@@ -1,74 +1,31 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>KTT - Illustration, Printmaking, Sculptures and Graphics</title>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-infinitescroll/2.0b2.120519/jquery.infinitescroll.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.2/masonry.pkgd.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.0.4/jquery.imagesloaded.min.js"></script>
-    <script src="//unpkg.com/jscroll@#.#.#/dist/jquery.jscroll.min.js"></script>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    <script src="../jquery.masonry.min.js"></script>
-    <script src="../js/jquery.infinitescroll.min.js"></script>
-
-    <script src = "scripts/artPage-scripts.js"></script>
-    <link rel="stylesheet" href="styling/artPage.css">
-<script>
-    $(function () {
-        $("#Page1").load("pages/page1.html");
-    });
-
-    // $(window).scroll(function () {
-    //     if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-    //         AddMoreContent();
-    //     }
-    // });
-    $( "body" ).click(function() {
-        alert(shit);
-});
-
-     $(function AddMoreContent(){
-        $("#Page2").load("pages/page2.html");
-      });
-
-      
-
-</script>
-
-<script>
-    var $grid = $('.grid').masonry({
-  columnWidth: 160,
-  itemSelector: '.grid-item'
-});
-    $('.append-button').on( 'click', function() {
-  var elems = [ getItemElement(), getItemElement(), getItemElement() ];
-
-// make jQuery object
-var $elems = $( elems );
-  $grid.append( $elems ).masonry( 'appended', $elems );
-});
-
-// create <div class="grid-item"></div>
-function getItemElement() {
-  var elem = document.createElement('div');
-  var wRand = Math.random();
-  var hRand = Math.random();
-  var widthClass = wRand > 0.8 ? 'grid-item--width3' : wRand > 0.6 ? 'grid-item--width2' : '';
-  var heightClass = hRand > 0.85 ? 'grid-item--height4' : hRand > 0.6 ? 'grid-item--height3' : hRand > 0.35 ? 'grid-item--height2' : '';
-  elem.className = 'grid-item ' + widthClass + ' ' + heightClass;
-  return elem;
-}
-
-
-</script>
-
-</head>
-
-<body>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' type='text/css' media='screen' href='./styles/scrollStyle.css'>
     
-        <!-- <embed width="100%" src="page1.html"> -->
-    <div id="sideBar">
+    <title>Infinite scroll</title>
+    <link type="text/css" rel="stylesheet" media="all" href="./styling/scrollStyle.css">
+    <link type="text/css" rel="stylesheet" media="all" href="./styling/artPage.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script type="text/javascript" src="./scripts/jquery.infinitescroll.js"></script>
+    <script type="text/javascript" src="./scripts/manual-trigger.js"></script>
+    <script type="text/javascript" src="./scripts/artPage-scripts.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.2/masonry.pkgd.js"></script>
+</head>
+<body>
+    <!-- <div class="infinite">
+        <div></div>
+    </div>
+    <script type="text/javascript">
+        $(window).scroll(function(){
+            if($(window).scrollTop() >= $(document).height() - $(window).height() - 50){
+                $(`.infinite`).append(`<img src='./pic/1.jpg' />`);
+            }
+        })    
+    </script> -->
+    <div id="nav">
         <div id="title">
             <h1>KTT</h1>
         </div>
@@ -81,25 +38,47 @@ function getItemElement() {
             <p>illustration</p>
         </div>
     </div>
-    <div class = "Masonry" id='Page1'>
-        
-    </div>
-    <div class = "Masonry" id = 'Page2'>
-
-    </div>
     
-    <div class="grid">
-    <div class="grid-item grid-item--width3"></div>
-    <div class="grid-item grid-item--height3"></div>
-    <div class="grid-item"></div>
-    <div class="grid-item grid-item--height2"></div>
-  </div>
-  
-  <p><button class="append-button">Append new items</button></p>
+    <div id="content">
+	
+		<h1>Infinite Scroll Template</h1>
+		
+		<p>Irure cillum commodo esse aliquip commodo consectetur exercitation do nostrud in. Quis occaecat voluptate occaecat in in non. Ea sunt elit minim esse nostrud qui duis reprehenderit. Lorem officia non laboris non. Dolore tempor sint adipisicing ullamco eu elit quis labore. Et amet anim ipsum duis cillum minim culpa qui. Amet consectetur aliquip consectetur ad eiusmod.
 
+Proident irure est mollit non ex consequat deserunt duis veniam id voluptate elit elit. Est dolore et sunt excepteur irure. Laboris do occaecat officia amet dolore fugiat proident aliqua duis ea ut. Deserunt et amet consectetur minim. Nisi et excepteur eiusmod incididunt aute aliquip ullamco consequat magna. Exercitation commodo labore ullamco dolore laboris qui sint consectetur irure amet labore minim.</p>
+<p>Irure cillum commodo esse aliquip commodo consectetur exercitation do nostrud in. Quis occaecat voluptate occaecat in in non. Ea sunt elit minim esse nostrud qui duis reprehenderit. Lorem officia non laboris non. Dolore tempor sint adipisicing ullamco eu elit quis labore. Et amet anim ipsum duis cillum minim culpa qui. Amet consectetur aliquip consectetur ad eiusmod.
 
-    <script src='scripts/masonry.pkgd.js'></script>
+    Proident irure est mollit non ex consequat deserunt duis veniam id voluptate elit elit. Est dolore et sunt excepteur irure. Laboris do occaecat officia amet dolore fugiat proident aliqua duis ea ut. Deserunt et amet consectetur minim. Nisi et excepteur eiusmod incididunt aute aliquip ullamco consequat magna. Exercitation commodo labore ullamco dolore laboris qui sint consectetur irure amet labore minim.</p>
+    <p>Irure cillum commodo esse aliquip commodo consectetur exercitation do nostrud in. Quis occaecat voluptate occaecat in in non. Ea sunt elit minim esse nostrud qui duis reprehenderit. Lorem officia non laboris non. Dolore tempor sint adipisicing ullamco eu elit quis labore. Et amet anim ipsum duis cillum minim culpa qui. Amet consectetur aliquip consectetur ad eiusmod.
+
+        Proident irure est mollit non ex consequat deserunt duis veniam id voluptate elit elit. Est dolore et sunt excepteur irure. Laboris do occaecat officia amet dolore fugiat proident aliqua duis ea ut. Deserunt et amet consectetur minim. Nisi et excepteur eiusmod incididunt aute aliquip ullamco consequat magna. Exercitation commodo labore ullamco dolore laboris qui sint consectetur irure amet labore minim.</p>
+        <p>Irure cillum commodo esse aliquip commodo consectetur exercitation do nostrud in. Quis occaecat voluptate occaecat in in non. Ea sunt elit minim esse nostrud qui duis reprehenderit. Lorem officia non laboris non. Dolore tempor sint adipisicing ullamco eu elit quis labore. Et amet anim ipsum duis cillum minim culpa qui. Amet consectetur aliquip consectetur ad eiusmod.
+
+            Proident irure est mollit non ex consequat deserunt duis veniam id voluptate elit elit. Est dolore et sunt excepteur irure. Laboris do occaecat officia amet dolore fugiat proident aliqua duis ea ut. Deserunt et amet consectetur minim. Nisi et excepteur eiusmod incididunt aute aliquip ullamco consequat magna. Exercitation commodo labore ullamco dolore laboris qui sint consectetur irure amet labore minim.</p>
+                                            
+	</div>
+	
+	<a id="next" href="index2.html">next page?</a>
+
+    <script type="text/javascript">
+       $(document).ready(function(){
+        $('#content').infinitescroll(
+            {
+                navSelector: "#next:last",
+                nextSelector: "#next:last",
+                itemSelector:"#content",
+                debug: false,
+                dataType: 'html',
+                maxPage: 40,
+                path(index){
+                    return "index" + index + ".html";
+                }
+            },
+            
+            function(newElements, data, url){
+        });
+       });
+    </script>
 
 </body>
-
 </html>
