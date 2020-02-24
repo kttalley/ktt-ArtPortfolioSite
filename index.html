@@ -15,16 +15,31 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.2/masonry.pkgd.js"></script>
 </head>
 <body>
-    <!-- <div class="infinite">
+    <div class="infinite">
         <div></div>
     </div>
     <script type="text/javascript">
+    let stash = [1,2,3,4,5,6,7,8];
         $(window).scroll(function(){
-            if($(window).scrollTop() >= $(document).height() - $(window).height() - 50){
-                $(`.infinite`).append(`<img src='./pic/1.jpg' />`);
+            for(let i = 1; i<9; i++){
+                if($(window).scrollTop() >= $(document).height() - $(window).height() - 50){
+                    // i = i +1;
+                    $(`.col`).append(`<img src='./art/${i}.jpg' />`);
+                    stash.push(i);
+                }
             }
         })    
-    </script> -->
+
+        //     let i = 1;
+        // $(window).scroll(function(){
+        //     let i = 1;
+        //         if($(window).scrollTop() >= $(document).height() - $(window).height() - 50){
+        //             $(`.col`).append(`<img src='./art/${i}.jpg' />`);
+        //             i=i+1;
+        //         }
+        //     }
+        // })    
+    </script>
     <div class="row">
         <div class="col col--xsmall">
             <div id="nav">
@@ -48,6 +63,7 @@
             <div id="content">
                 <div class="row">
                     <div class="col col--small">
+                        <p class="desc"></p>
                     </div>
                     <div class="col col--large">
                     </div>
