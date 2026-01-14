@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            width:100%;
+        }
+        .col {
+            flex:1;
+            padding:1rem;
+            margin:0.1rem;
+            background:coral;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col col--small"></div>
+        <div class="col col--large"></div>
+    </div>
+    <div class="row">
+        <div class="col col--small"></div>
+        <div class="col col--small"></div>
+        <div class="col col--half"></div>
+    </div>
+    
+</body>
+</html>

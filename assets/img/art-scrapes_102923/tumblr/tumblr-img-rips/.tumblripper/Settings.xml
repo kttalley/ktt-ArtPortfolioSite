@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<Website xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Url>kristiantalley.com</Url>
+  <Title>tumblr</Title>
+  <Enabled>true</Enabled>
+  <LastRun>2018-09-23T20:50:47.5260218-07:00</LastRun>
+  <PluginInName>Tumblr</PluginInName>
+</Website>
