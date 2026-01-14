@@ -1,143 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='stylesheet' type='text/css' media='screen' href='./styles/scrollStyle.css'>
-    
-    <title>KTT</title>
-    <link type="text/css" rel="stylesheet" media="all" href="./styling/scrollStyle.css">
-    <link type="text/css" rel="stylesheet" media="all" href="./styling/artPage.css">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-	<script type="text/javascript" src="./scripts/jquery.infinitescroll.js"></script>
-    <script type="text/javascript" src="./scripts/manual-trigger.js"></script>
-    <script type="text/javascript" src="./scripts/artPage-scripts.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.2/masonry.pkgd.js"></script>
-</head>
-<body>
-    <div class="infinite">
-        <div></div>
-    </div>
-    <script type="text/javascript">
-    let stash = [1,2,3,4,5,6,7,8];
-        $(window).scroll(function(){
-            for(let i = 1; i<9; i++){
-                if($(window).scrollTop() >= $(document).height() - $(window).height() - 50){
-                    // i = i +1;
-                    $(`.col`).append(`<img src='./art/${i}.jpg' />`);
-                    stash.push(i);
-                }
-            }
-        })    
-
-        //     let i = 1;
-        // $(window).scroll(function(){
-        //     let i = 1;
-        //         if($(window).scrollTop() >= $(document).height() - $(window).height() - 50){
-        //             $(`.col`).append(`<img src='./art/${i}.jpg' />`);
-        //             i=i+1;
-        //         }
-        //     }
-        // })    
-    </script>
-    <div class="row">
-        <div class="col col--xsmall">
-            <div id="nav">
-                <div id="title">
-                    <h1>KTT</h1>
-                </div>
-                <div id="About">
-                    <h4>About</h4>
-                    <p>Lorem Ipsum</p>
-                </div>
-                <div id="Medium">
-                    <h4>MEDIUM</h4>
-                    <p>illustration</p>
-                </div>
-            </div>
-        </div>
-        <div class="col col--xlarge">
-         
-            
-            
-            <div id="content">
-                <div class="row">
-                    <div class="col col--small">
-                        <p class="desc"></p>
-                    </div>
-                    <div class="col col--large">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col col--xsmall">
-                    </div>
-                    <div class="col col--half">
-
-                    </div>
-                    <div class="col col--small">
-                    </div>
-                    
-                    
-                </div>
-                <div class="row">
-                    <div class="col col--half">
-                    </div>
-                    <div class="col col--half">
-
-                    </div>
-                    
-                    
-                </div>
-                <div class="row">
-                    <div class="col col--med">
-                    </div>
-                    <div class="col col--med">
-                    </div>
-                    <div class="col col--med">
-                    </div>
-                    
-                    
-                </div>
-                <div id="row">
-                    <h1>Infinite Scroll Template</h1>
-                    
-                    <p>Irure cillum commodo esse aliquip commodo consectetur exercitation do nostrud in. Quis occaecat voluptate occaecat in in non. Ea sunt elit minim esse nostrud qui duis reprehenderit. Lorem officia non laboris non. Dolore tempor sint adipisicing ullamco eu elit quis labore. Et amet anim ipsum duis cillum minim culpa qui. Amet consectetur aliquip consectetur ad eiusmod.
-                        
-                        Proident irure est mollit non ex consequat deserunt duis veniam id voluptate elit elit. Est dolore et sunt excepteur irure. Laboris do occaecat officia amet dolore fugiat proident aliqua duis ea ut. Deserunt et amet consectetur minim. Nisi et excepteur eiusmod incididunt aute aliquip ullamco consequat magna. Exercitation commodo labore ullamco dolore laboris qui sint consectetur irure amet labore minim.</p>
-                        <p>Irure cillum commodo esse aliquip commodo consectetur exercitation do nostrud in. Quis occaecat voluptate occaecat in in non. Ea sunt elit minim esse nostrud qui duis reprehenderit. Lorem officia non laboris non. Dolore tempor sint adipisicing ullamco eu elit quis labore. Et amet anim ipsum duis cillum minim culpa qui. Amet consectetur aliquip consectetur ad eiusmod.
-                            
-                            Proident irure est mollit non ex consequat deserunt duis veniam id voluptate elit elit. Est dolore et sunt excepteur irure. Laboris do occaecat officia amet dolore fugiat proident aliqua duis ea ut. Deserunt et amet consectetur minim. Nisi et excepteur eiusmod incididunt aute aliquip ullamco consequat magna. Exercitation commodo labore ullamco dolore laboris qui sint consectetur irure amet labore minim.</p>
-                            <p>Irure cillum commodo esse aliquip commodo consectetur exercitation do nostrud in. Quis occaecat voluptate occaecat in in non. Ea sunt elit minim esse nostrud qui duis reprehenderit. Lorem officia non laboris non. Dolore tempor sint adipisicing ullamco eu elit quis labore. Et amet anim ipsum duis cillum minim culpa qui. Amet consectetur aliquip consectetur ad eiusmod.
-                                
-                                Proident irure est mollit non ex consequat deserunt duis veniam id voluptate elit elit. Est dolore et sunt excepteur irure. Laboris do occaecat officia amet dolore fugiat proident aliqua duis ea ut. Deserunt et amet consectetur minim. Nisi et excepteur eiusmod incididunt aute aliquip ullamco consequat magna. Exercitation commodo labore ullamco dolore laboris qui sint consectetur irure amet labore minim.</p>
-                                <p>Irure cillum commodo esse aliquip commodo consectetur exercitation do nostrud in. Quis occaecat voluptate occaecat in in non. Ea sunt elit minim esse nostrud qui duis reprehenderit. Lorem officia non laboris non. Dolore tempor sint adipisicing ullamco eu elit quis labore. Et amet anim ipsum duis cillum minim culpa qui. Amet consectetur aliquip consectetur ad eiusmod.
-                                    
-                                    Proident irure est mollit non ex consequat deserunt duis veniam id voluptate elit elit. Est dolore et sunt excepteur irure. Laboris do occaecat officia amet dolore fugiat proident aliqua duis ea ut. Deserunt et amet consectetur minim. Nisi et excepteur eiusmod incididunt aute aliquip ullamco consequat magna. Exercitation commodo labore ullamco dolore laboris qui sint consectetur irure amet labore minim.</p>
-                                </div>                           
-                            </div>
-                        </div>
-                        </div>
-                        <a id="next" href="index2.html">next page?</a>
-
-                        <script type="text/javascript">
-       $(document).ready(function(){
-        $('#content').infinitescroll(
-            {
-                navSelector: "#next:last",
-                nextSelector: "#next:last",
-                itemSelector:"#content",
-                debug: false,
-                dataType: 'html',
-                maxPage: 40,
-                path(index){
-                    return "index" + index + ".html";
-                }
-            },
-            
-            function(newElements, data, url){
-        });
-       });
-    </script>
-
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>KTT - Art Portfolio</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>
