@@ -185,7 +185,7 @@ function LiminalGround() {
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -3, -8]} receiveShadow>
         <planeGeometry args={[120, 80]} />
         <meshStandardMaterial
-          color="#191916"
+          color="#f9f926"
           roughness={0.95}
           metalness={0}
           transparent

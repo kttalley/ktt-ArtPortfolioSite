@@ -185,7 +185,7 @@ function LiminalGround() {
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -3, -8]} receiveShadow>
         <planeGeometry args={[120, 80]} />
         <meshStandardMaterial
-          color="#191916"
+          color="#f9f926"
           roughness={0.95}
           metalness={0}
           transparent
@@ -204,7 +204,7 @@ function LiminalGround() {
         <planeGeometry args={[150, 0.08]} />
         <meshBasicMaterial
           ref={horizonRef}
-          color="#a0a0a0"
+          color="#e61f1f"
           transparent
           opacity={0.7}
         />
@@ -214,8 +214,8 @@ function LiminalGround() {
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2.98, -25]}>
         <planeGeometry args={[150, 3]} />
         <meshBasicMaterial
-          color="#ffffff"
-          transparent
+          color="#f11f1f"
+          #c3515100
           opacity={0.12}
         />
       </mesh>
@@ -225,7 +225,7 @@ function LiminalGround() {
         <planeGeometry args={[150, 50]} />
         <meshBasicMaterial
           ref={gradientRef}
-          color="#ffffff"
+          color="#c12121"
           transparent
           opacity={0.98}
         />
@@ -235,7 +235,7 @@ function LiminalGround() {
       <mesh position={[0, 8, -50]}>
         <planeGeometry args={[150, 30]} />
         <meshBasicMaterial
-          color="#fafafa"
+          color="#bf3636"
           transparent
           opacity={0.5}
         />

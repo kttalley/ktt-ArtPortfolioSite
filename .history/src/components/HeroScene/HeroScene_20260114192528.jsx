@@ -82,7 +82,7 @@ function UndulatingLight() {
         ref={lightRef}
         position={[3, 12, 6]}
         intensity={0.8}
-        color="#866523"
+        color="#fffaf0"
         castShadow
         shadow-mapSize={[1024, 1024]}
         shadow-camera-far={60}
@@ -97,13 +97,13 @@ function UndulatingLight() {
         ref={light2Ref}
         position={[-6, 8, 4]}
         intensity={0.45}
-        color="#baa641"
+        color="#f0f5ff"
       />
 
       <pointLight
         position={[0, 15, -5]}
         intensity={0.35}
-        color="#eb2020"
+        color="#ffffff"
         distance={40}
         decay={2}
       />
@@ -185,7 +185,7 @@ function LiminalGround() {
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -3, -8]} receiveShadow>
         <planeGeometry args={[120, 80]} />
         <meshStandardMaterial
-          color="#191916"
+          color="#f0f0ec"
           roughness={0.95}
           metalness={0}
           transparent
