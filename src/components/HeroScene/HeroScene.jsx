@@ -372,12 +372,27 @@ function HeroScene() {
   const seed = useMemo(() => Math.random() * 1000, [])
   const positions = useMemo(() => calculateCardPositions(cardCount, seed), [cardCount, seed])
 
+  // Camera position - closer on smaller screens with fewer cards
+  // Base: 20% closer than original, scales with card count
   const cameraPosition = useMemo(() => {
-    const baseX = (Math.random() - 0.5) * 1
-    const baseY = 0.5 + Math.random() * 0.3
-    const baseZ = 10 + Math.random() * 2
+    const baseX = (Math.random() - 0.5) * 0.8
+
+    // Y slightly higher to see more of the scene
+    const baseY = 0.4 + Math.random() * 0.3
+
+    // Z distance scales with card count:
+    // 5 cards (desktop): z = 8 (was 10-12, now 20% closer)
+    // 4 cards (tablet):  z = 7
+    // 3 cards (mobile):  z = 6 (even closer)
+    const zByCount = {
+      5: 8 + Math.random() * 1.5,  // 8-9.5
+      4: 7 + Math.random() * 1,    // 7-8
+      3: 6 + Math.random() * 0.8,  // 6-6.8
+    }
+    const baseZ = zByCount[cardCount] || 8
+
     return [baseX, baseY, baseZ]
-  }, [])
+  }, [cardCount])
 
   // Focus state
   const [focusedIndex, setFocusedIndex] = useState(null)

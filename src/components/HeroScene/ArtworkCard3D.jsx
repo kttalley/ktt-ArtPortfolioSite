@@ -1,5 +1,6 @@
 import { useRef, useMemo, useState, useEffect } from 'react'
 import { useFrame, useThree, extend } from '@react-three/fiber'
+import { RoundedBox } from '@react-three/drei'
 import * as THREE from 'three'
 
 /**
@@ -37,18 +38,12 @@ class SoftShadowMaterial extends THREE.ShaderMaterial {
         varying vec2 vUv;
 
         void main() {
-          // Elliptical gradient from center
           vec2 center = vUv - 0.5;
-          // Stretch horizontally for ellipse effect
           center.x *= 0.7;
           float dist = length(center) * 2.0;
-
-          // Smooth falloff from center
           float alpha = smoothstep(1.0, 0.0, dist);
-          // Extra softening at edges
           alpha *= smoothstep(1.0, 0.3, dist);
           alpha *= uOpacity;
-
           gl_FragColor = vec4(uColor, alpha);
         }
       `,
@@ -61,7 +56,7 @@ class SoftShadowMaterial extends THREE.ShaderMaterial {
 extend({ SoftShadowMaterial })
 
 /**
- * Floating artwork card with click-to-focus functionality
+ * Floating artwork card with rounded frame
  */
 function ArtworkCard3D({
   artwork,
@@ -85,15 +80,12 @@ function ArtworkCard3D({
   const [textureLoaded, setTextureLoaded] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
 
-  // Store texture ref to prevent swaps
   const textureRef = useRef(null)
-
-  // Focus animation state
   const focusProgress = useRef(0)
 
-  // Load image texture ONCE and store it
+  // Load image texture ONCE
   useEffect(() => {
-    if (textureRef.current) return // Already loaded
+    if (textureRef.current) return
 
     const loader = new THREE.TextureLoader()
     loader.load(artwork.src, (tex) => {
@@ -126,11 +118,12 @@ function ArtworkCard3D({
     }
   })
 
-  // Card dimensions (using user's updated values)
+  // Card dimensions
   const cardHeight = 3.2
   const cardWidth = cardHeight * aspect
   const frameThickness = 0.35
   const frameDepth = 0.42
+  const borderRadius = 0.08 // Rounded corners
 
   // Animation offsets
   const offsets = useMemo(
@@ -150,19 +143,17 @@ function ArtworkCard3D({
 
   const basePosition = useMemo(() => [...position], [position])
 
-  // Interaction state - separate drag from click
+  // Interaction state
   const [isDragging, setIsDragging] = useState(false)
   const dragStartPos = useRef({ x: 0, y: 0 })
   const hasDragged = useRef(false)
-  const DRAG_THRESHOLD = 5 // pixels
+  const DRAG_THRESHOLD = 5
 
   const snapBack = useRef(1)
 
   const handlePointerDown = (e) => {
     if (isFocused) return
     e.stopPropagation()
-
-    // Store start position for drag detection
     dragStartPos.current = { x: e.clientX, y: e.clientY }
     hasDragged.current = false
     setIsDragging(true)
@@ -171,7 +162,6 @@ function ArtworkCard3D({
 
   const handlePointerUp = (e) => {
     if (isFocused) {
-      // When focused, clicking anywhere unfocuses
       onUnfocus?.()
       return
     }
@@ -180,7 +170,6 @@ function ArtworkCard3D({
     setIsDragging(false)
     gl.domElement.style.cursor = isHovered ? 'pointer' : 'auto'
 
-    // Only trigger click if we didn't drag
     if (wasDragging && !hasDragged.current) {
       e.stopPropagation()
       focusProgress.current = 0
@@ -191,7 +180,6 @@ function ArtworkCard3D({
   const handlePointerMove = (e) => {
     if (!isDragging || isFocused) return
 
-    // Check if moved beyond threshold
     const dx = e.clientX - dragStartPos.current.x
     const dy = e.clientY - dragStartPos.current.y
     const distance = Math.sqrt(dx * dx + dy * dy)
@@ -200,7 +188,6 @@ function ArtworkCard3D({
       hasDragged.current = true
       snapBack.current = 0
 
-      // Apply drag movement
       if (groupRef.current && e.point) {
         e.stopPropagation()
         groupRef.current.position.x = e.point.x
@@ -214,22 +201,17 @@ function ArtworkCard3D({
 
     const t = state.clock.elapsedTime
 
-    // ══════════════════════════════════════════════════════════════
-    // FOCUS MODE - Animate to center of view
-    // ══════════════════════════════════════════════════════════════
+    // FOCUS MODE
     if (isFocused) {
       focusProgress.current = Math.min(1, focusProgress.current + delta * 2.5)
       const ease = 1 - Math.pow(1 - focusProgress.current, 4)
 
-      // Calculate target position in front of camera
-      const targetPos = new THREE.Vector3(0, 0, -5)
+      const targetPos = new THREE.Vector3(0, 0, -4.5)
       targetPos.applyQuaternion(camera.quaternion)
       targetPos.add(camera.position)
 
-      // Lerp to focus position
       groupRef.current.position.lerp(targetPos, ease * 0.12)
 
-      // Face camera
       const targetRotY = Math.atan2(
         camera.position.x - groupRef.current.position.x,
         camera.position.z - groupRef.current.position.z
@@ -238,11 +220,9 @@ function ArtworkCard3D({
       groupRef.current.rotation.y = THREE.MathUtils.lerp(groupRef.current.rotation.y, targetRotY, ease * 0.08)
       groupRef.current.rotation.z = THREE.MathUtils.lerp(groupRef.current.rotation.z, 0, ease * 0.08)
 
-      // Scale up when focused
       const focusScale = 1 + ease * 0.12
       groupRef.current.scale.setScalar(focusScale)
 
-      // Fade shadow when focused
       if (shadowMatRef.current) {
         shadowMatRef.current.uniforms.uOpacity.value = THREE.MathUtils.lerp(0.5, 0.15, ease)
       }
@@ -250,9 +230,7 @@ function ArtworkCard3D({
       return
     }
 
-    // ══════════════════════════════════════════════════════════════
     // NORMAL MODE - Sweeping motion
-    // ══════════════════════════════════════════════════════════════
     const slowTime = t * 0.08
     const medTime = t * 0.15
 
@@ -283,9 +261,7 @@ function ArtworkCard3D({
       groupRef.current.scale.setScalar(breathe * hoverScale)
     }
 
-    // ══════════════════════════════════════════════════════════════
     // ROTATION
-    // ══════════════════════════════════════════════════════════════
     if (!isDragging || !hasDragged.current) {
       const rotSpeed = 0.1
       const velocityInfluence = 0.08
@@ -302,9 +278,7 @@ function ArtworkCard3D({
       groupRef.current.rotation.z = THREE.MathUtils.lerp(groupRef.current.rotation.z, targetRotZ, 0.06)
     }
 
-    // ══════════════════════════════════════════════════════════════
     // FRAME EFFECTS
-    // ══════════════════════════════════════════════════════════════
     if (frameMatRef.current) {
       const viewDir = new THREE.Vector3()
         .subVectors(camera.position, groupRef.current.position)
@@ -323,18 +297,14 @@ function ArtworkCard3D({
       innerFrameRef.current.emissiveIntensity = 0.03 * glowPulse
     }
 
-    // ══════════════════════════════════════════════════════════════
     // SOFT SHADOW
-    // ══════════════════════════════════════════════════════════════
     if (shadowMatRef.current) {
       const heightAboveGround = groupRef.current.position.y + 3
-      // Shadow opacity varies with height
       const shadowOpacity = THREE.MathUtils.clamp(0.5 - heightAboveGround * 0.04, 0.15, 0.55)
       shadowMatRef.current.uniforms.uOpacity.value = shadowOpacity
     }
   })
 
-  // Shadow scale based on card size
   const shadowWidth = cardWidth * 1.8
   const shadowHeight = cardHeight * 0.8
 
@@ -372,7 +342,7 @@ function ArtworkCard3D({
         />
       </mesh>
 
-      {/* INNER FRAME / MAT */}
+      {/* INNER FRAME / MAT - with rounded corners */}
       <mesh position={[0, 0, frameDepth / 2 - 0.005]}>
         <planeGeometry args={[cardWidth - frameThickness * 0.3, cardHeight - frameThickness * 0.3]} />
         <meshStandardMaterial
@@ -385,9 +355,15 @@ function ArtworkCard3D({
         />
       </mesh>
 
-      {/* OUTER FRAME */}
-      <mesh castShadow receiveShadow position={[0, 0, 0]}>
-        <boxGeometry args={[cardWidth, cardHeight, frameDepth]} />
+      {/* OUTER FRAME - Rounded corners */}
+      <RoundedBox
+        args={[cardWidth, cardHeight, frameDepth]}
+        radius={borderRadius}
+        smoothness={4}
+        castShadow
+        receiveShadow
+        position={[0, 0, 0]}
+      >
         <meshStandardMaterial
           ref={frameMatRef}
           color="#080808"
@@ -397,13 +373,7 @@ function ArtworkCard3D({
           emissiveIntensity={0.15}
           envMapIntensity={1.0}
         />
-      </mesh>
-
-      {/* FRAME EDGE HIGHLIGHT */}
-      <lineSegments position={[0, 0, frameDepth / 2 + 0.002]}>
-        <edgesGeometry args={[new THREE.BoxGeometry(cardWidth + 0.02, cardHeight + 0.02, 0.001)]} />
-        <lineBasicMaterial color="#333333" transparent opacity={0.25} />
-      </lineSegments>
+      </RoundedBox>
 
       {/* SOFT GRADIENT SHADOW */}
       <mesh

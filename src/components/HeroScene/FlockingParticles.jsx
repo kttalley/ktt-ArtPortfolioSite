@@ -3,7 +3,8 @@ import { useFrame, extend } from '@react-three/fiber'
 import * as THREE from 'three'
 
 /**
- * Custom shader material for large prismatic shimmer particles
+ * Prismatic shimmer material with rainbow wave undulations
+ * Ethereal bubble vibes - light refracting through a prism
  */
 class PrismaticShimmerMaterial extends THREE.ShaderMaterial {
   constructor() {
@@ -11,17 +12,21 @@ class PrismaticShimmerMaterial extends THREE.ShaderMaterial {
       uniforms: {
         uTime: { value: 0 },
         uSize: { value: 180.0 },
+        uWaveSpeed: { value: 0.4 },
+        uWaveScale: { value: 0.15 },
       },
       vertexShader: `
         attribute float aPhase;
         attribute float aScale;
         varying float vPhase;
         varying float vAlpha;
+        varying vec3 vWorldPos;
         uniform float uTime;
         uniform float uSize;
 
         void main() {
           vPhase = aPhase;
+          vWorldPos = position;
 
           // Flutter scale animation
           float flutter = 1.0 + sin(uTime * 2.5 + aPhase * 6.28) * 0.4;
@@ -29,7 +34,7 @@ class PrismaticShimmerMaterial extends THREE.ShaderMaterial {
 
           vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
 
-          // Distance-based alpha with wider visible range
+          // Distance-based alpha
           float dist = -mvPosition.z;
           vAlpha = smoothstep(50.0, 3.0, dist) * smoothstep(0.5, 2.0, dist);
 
@@ -41,7 +46,17 @@ class PrismaticShimmerMaterial extends THREE.ShaderMaterial {
       fragmentShader: `
         varying float vPhase;
         varying float vAlpha;
+        varying vec3 vWorldPos;
         uniform float uTime;
+        uniform float uWaveSpeed;
+        uniform float uWaveScale;
+
+        // HSV to RGB conversion
+        vec3 hsv2rgb(vec3 c) {
+          vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+          vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+          return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+        }
 
         void main() {
           vec2 center = gl_PointCoord - 0.5;
@@ -53,26 +68,63 @@ class PrismaticShimmerMaterial extends THREE.ShaderMaterial {
           float softEdge = smoothstep(0.5, 0.0, dist);
           float core = smoothstep(0.3, 0.0, dist);
 
-          // Prismatic color based on angle and time
-          float angle = atan(center.y, center.x);
-          float hue = angle / 6.28 + uTime * 0.1 + vPhase;
+          // ═══════════════════════════════════════════════════════════
+          // RAINBOW WAVE - Prismatic undulation sweeping through space
+          // ═══════════════════════════════════════════════════════════
 
-          // Rainbow to white gradient
-          vec3 rainbow = vec3(
-            sin(hue * 6.28) * 0.15 + 0.95,
-            sin(hue * 6.28 + 2.09) * 0.12 + 0.95,
-            sin(hue * 6.28 + 4.18) * 0.18 + 0.92
-          );
+          // Wave travels through space based on position
+          float wavePos = vWorldPos.x * 0.3 + vWorldPos.z * 0.2 + vWorldPos.y * 0.1;
+          float wave = sin(wavePos + uTime * uWaveSpeed) * 0.5 + 0.5;
+
+          // Secondary slower wave for variation
+          float wave2 = sin(wavePos * 0.5 - uTime * uWaveSpeed * 0.7 + 2.0) * 0.5 + 0.5;
+
+          // Combine waves for intensity
+          float waveIntensity = wave * wave2;
+
+          // Rainbow hue based on wave position and time
+          float hue = fract(wavePos * 0.05 + uTime * 0.08 + vPhase * 0.3);
+
+          // Prismatic rainbow color
+          vec3 rainbow = hsv2rgb(vec3(hue, 0.6 * waveIntensity, 1.0));
+
+          // Base white/ethereal color
+          vec3 baseColor = vec3(0.95, 0.97, 1.0);
+
+          // Mix rainbow into base based on wave intensity
+          vec3 prismatic = mix(baseColor, rainbow, waveIntensity * uWaveScale + 0.1);
+
+          // ═══════════════════════════════════════════════════════════
+          // SHIMMER AND SPARKLE
+          // ═══════════════════════════════════════════════════════════
 
           // Shimmer pulse
           float shimmer = sin(uTime * 3.0 + vPhase * 12.0 + dist * 8.0) * 0.3 + 0.7;
 
-          // Combine: bright white core, prismatic edge
-          vec3 color = mix(rainbow, vec3(1.0), core * 0.8) * shimmer;
+          // Angle-based prismatic edge (chromatic aberration effect)
+          float angle = atan(center.y, center.x);
+          float edgeRainbow = sin(angle * 3.0 + uTime * 2.0 + vPhase * 5.0) * 0.5 + 0.5;
 
-          // Sparkle highlights
+          // Edge gets more colorful
+          vec3 edgeColor = hsv2rgb(vec3(
+            fract(angle / 6.28 + uTime * 0.1),
+            0.4 + edgeRainbow * 0.3,
+            1.0
+          ));
+
+          // Blend: white core, prismatic middle, rainbow edge
+          vec3 color = mix(edgeColor, prismatic, core * 0.7);
+          color = mix(color, vec3(1.0), core * 0.5); // Bright white core
+          color *= shimmer;
+
+          // Sparkle highlights during wave peaks
           float sparkle = pow(sin(uTime * 5.0 + vPhase * 20.0) * 0.5 + 0.5, 8.0);
-          color += sparkle * 0.4;
+          sparkle *= waveIntensity; // Sparkle more during rainbow waves
+          color += sparkle * rainbow * 0.5;
+
+          // Bubble iridescence - shifts with view
+          float iridescence = sin(dist * 20.0 - uTime * 1.5) * 0.15;
+          color += vec3(iridescence, iridescence * 0.8, iridescence * 1.2) * (1.0 - core);
 
           float alpha = softEdge * vAlpha * 0.85;
 
@@ -229,7 +281,7 @@ class Boid {
 }
 
 /**
- * Large flocking particles with prismatic shimmer
+ * Ethereal flocking particles with prismatic rainbow waves
  */
 function FlockingParticles({ count = 25 }) {
   const meshRef = useRef()
@@ -274,6 +326,10 @@ function FlockingParticles({ count = 25 }) {
 
     const time = state.clock.elapsedTime
     materialRef.current.uniforms.uTime.value = time
+
+    // Animate wave parameters for variety
+    materialRef.current.uniforms.uWaveSpeed.value = 0.4 + Math.sin(time * 0.1) * 0.1
+    materialRef.current.uniforms.uWaveScale.value = 0.15 + Math.sin(time * 0.15) * 0.05
 
     for (const boid of boids) {
       boid.flock(boids, time)
