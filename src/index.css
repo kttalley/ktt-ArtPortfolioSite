@@ -142,3 +142,18 @@ a:hover {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-accent);
 }
+
+/* Hero 3D Scene styles */
+.hero-scene-container {
+  position: relative;
+  background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+}
+
+.hero-scene-container canvas {
+  touch-action: none;
+  cursor: grab;
+}
+
+.hero-scene-container canvas:active {
+  cursor: grabbing;
+}
