@@ -115,14 +115,26 @@ function Sidebar() {
               </li>
               <li>
                 <a
-                  href="https://tumblr.com"
+                  href="https://design.kristiantalley.com"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-[#00deff] transition-colors duration-300"
                 >
-                  Tumblr
+                  Web dev portfolio
                 </a>
               </li>
+               <li>
+                <a
+                  href="https://github.com/kttalley/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-[#00deff] transition-colors duration-300"
+                >
+                  Github
+                </a>
+              </li>
+              
+
               <li>
                 <a
                   href="mailto:contact@kristiantalley.com"
