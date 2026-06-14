@@ -4,10 +4,70 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/jpeg" href="/favicon.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Primary SEO -->
+    <title>Kristian Talley - Art Portfolio</title>
+    <meta name="description" content="Kristian Talley is a multidisciplinary artist working in illustration, painting, printmaking, and sculpture. Browse an archive of original artwork and recent work." />
+    <meta name="author" content="Kristian Talley" />
+    <link rel="canonical" href="https://kristiantalley.com/" />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kristian Talley" />
+    <meta property="og:title" content="Kristian Talley - Art Portfolio" />
+    <meta property="og:description" content="Multidisciplinary artist working in illustration, painting, printmaking, and sculpture. Browse original artwork and recent work." />
+    <meta property="og:url" content="https://kristiantalley.com/" />
+    <meta property="og:image" content="https://kristiantalley.com/instagram/18007065539065349.jpg" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Kristian Talley - Art Portfolio" />
+    <meta name="twitter:description" content="Multidisciplinary artist working in illustration, painting, printmaking, and sculpture." />
+    <meta name="twitter:image" content="https://kristiantalley.com/instagram/18007065539065349.jpg" />
+
+    <!-- Structured data: who I am + the site -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Person",
+          "@id": "https://kristiantalley.com/#person",
+          "name": "Kristian Talley",
+          "url": "https://kristiantalley.com/",
+          "image": "https://kristiantalley.com/instagram/18007065539065349.jpg",
+          "jobTitle": "Artist",
+          "description": "Multidisciplinary artist working in illustration, painting, printmaking, and sculpture.",
+          "sameAs": [
+            "https://www.instagram.com/kristian.talley/",
+            "https://store.kristiantalley.com/",
+            "https://design.kristiantalley.com/"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://kristiantalley.com/#website",
+          "name": "Kristian Talley - Art Portfolio",
+          "url": "https://kristiantalley.com/",
+          "author": { "@id": "https://kristiantalley.com/#person" }
+        }
+      ]
+    }
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <title>Kristian Talley - Art Portfolio</title>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZX4410GSD3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ZX4410GSD3');
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -26,12 +26,18 @@ function TaggedGallery() {
   }
 
   const filteredArtworks = getArtworksByMedium(medium)
+  const cap = medium.charAt(0).toUpperCase() + medium.slice(1)
 
   return (
-    <MasonryGallery
-      artworks={filteredArtworks}
-      title={medium}
-    />
+    <>
+      <title>{`${cap} — Kristian Talley`}</title>
+      <meta name="description" content={`${cap} works by Kristian Talley.`} />
+      <link rel="canonical" href={`https://kristiantalley.com/tagged/${medium}`} />
+      <MasonryGallery
+        artworks={filteredArtworks}
+        title={medium}
+      />
+    </>
   )
 }
 

@@ -51,8 +51,23 @@ function ArtworkDetail() {
     )
   }
 
+  const metaDesc = (artwork.description || artwork.alt || `${artwork.title} by Kristian Talley`).slice(0, 200)
+  const metaImg = `https://kristiantalley.com${artwork.src}`
+
   return (
     <div className="min-h-screen">
+      {/* Per-route SEO metadata (React 19 hoists these into <head>) */}
+      <title>{`${artwork.title} — Kristian Talley`}</title>
+      <meta name="description" content={metaDesc} />
+      <link rel="canonical" href={`https://kristiantalley.com/post/${artwork.id}`} />
+      <meta property="og:type" content="article" />
+      <meta property="og:title" content={`${artwork.title} — Kristian Talley`} />
+      <meta property="og:description" content={metaDesc} />
+      <meta property="og:image" content={metaImg} />
+      <meta property="og:url" content={`https://kristiantalley.com/post/${artwork.id}`} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content={metaImg} />
+
       {/* Close button - returns to gallery */}
       <button
         onClick={handleClose}
