@@ -33,8 +33,8 @@ function App() {
           </div>
         </main>
 
-        {/* Footer caption */}
-        <Footer />
+        {/* Footer caption - hidden for now */}
+        {/* <Footer /> */}
       </div>
     </BrowserRouter>
   )

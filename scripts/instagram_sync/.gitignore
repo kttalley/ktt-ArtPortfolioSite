@@ -1,0 +1,9 @@
+# Python virtual environment
+venv/
+__pycache__/
+*.pyc
+
+# Instagram session / credentials (NEVER commit these)
+.ig_session
+.session
+*.session

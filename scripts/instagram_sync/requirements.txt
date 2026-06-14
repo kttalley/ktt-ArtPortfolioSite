@@ -1,1 +1,4 @@
 instaloader>=4.10
+# Robust, cross-platform browser cookie extraction (handles Chrome's
+# at-rest encryption on macOS/Windows/Linux). Used by --load-cookies.
+browser_cookie3>=0.19.1
