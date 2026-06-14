@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Sidebar from './components/Sidebar'
+import Footer from './components/Footer'
 import Loader from './components/Loader'
 import Gallery from './pages/Gallery'
 import TaggedGallery from './pages/TaggedGallery'
@@ -17,7 +18,7 @@ function App() {
         <Sidebar />
 
         {/* Main content area - offset by sidebar width */}
-        <main className="ml-[250px] p-6 max-md:ml-0 max-md:pt-20">
+        <main className="ml-[250px] p-6 pb-10 max-md:ml-0 max-md:pt-20 max-md:pb-10">
           <div className="max-w-[80vw] max-md:max-w-full">
             <Routes>
               {/* Home gallery */}
@@ -31,6 +32,9 @@ function App() {
             </Routes>
           </div>
         </main>
+
+        {/* Footer caption */}
+        <Footer />
       </div>
     </BrowserRouter>
   )

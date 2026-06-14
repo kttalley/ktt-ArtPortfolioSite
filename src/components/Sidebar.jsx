@@ -2,10 +2,23 @@ import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { MEDIUMS } from '../data/artworks'
 
+// Chevron/carrot SVG for accordion indicators
+const CarrotIcon = ({ className = '' }) => (
+  <svg
+    className={`w-3 h-3 inline-block transition-transform duration-300 ${className}`}
+    viewBox="0 0 12 12"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.5"
+  >
+    <path d="M3 4L6 8L9 4" strokeLinecap="round" strokeLinejoin="round" />
+  </svg>
+)
+
 function Sidebar() {
   const [aboutOpen, setAboutOpen] = useState(false)
-  const [linksOpen, setLinksOpen] = useState(false)
   const [mediumOpen, setMediumOpen] = useState(false)
+  const [socialOpen, setSocialOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const location = useLocation()
 
@@ -64,136 +77,148 @@ function Sidebar() {
           </Link>
         </div>
 
-        {/* About Section */}
-        <div
-          className="mb-6"
-          onMouseEnter={() => setAboutOpen(true)}
-          onMouseLeave={() => setAboutOpen(false)}
-          onClick={() => setAboutOpen(!aboutOpen)}
-        >
-          <h4 className="text-sm font-bold uppercase tracking-widest cursor-pointer hover:text-[#00deff] transition-colors duration-300">
-            About
-          </h4>
-          <div
-            className={`overflow-hidden transition-all duration-700 ease-out ${
-              aboutOpen ? 'max-h-[500px] opacity-100 mt-3' : 'max-h-0 opacity-0'
-            }`}
-          >
-            <p className="text-sm leading-relaxed text-gray-700">
-              Kristian Talley is a visual artist and illustrator based in the Bay Area.
-              Working across digital and traditional mediums, exploring themes of identity,
-              nature, and the surreal.
-            </p>
+        {/* Navigation */}
+        <nav className="flex flex-col gap-1">
+          {/* About (Accordion) */}
+          <div className="mb-2">
+            <button
+              onClick={() => setAboutOpen(!aboutOpen)}
+              className="w-full flex items-center justify-between text-sm font-bold uppercase tracking-widest cursor-pointer hover:text-[#00deff] transition-colors duration-300 py-1"
+            >
+              <span>About</span>
+              <CarrotIcon className={aboutOpen ? 'rotate-180' : ''} />
+            </button>
+            <div
+              className={`overflow-hidden transition-all duration-500 ease-out ${
+                aboutOpen ? 'max-h-[200px] opacity-100 mt-2' : 'max-h-0 opacity-0'
+              }`}
+            >
+              <p className="text-sm leading-relaxed text-gray-700">
+                Kristian Talley is a visual artist and illustrator based in the Bay Area.
+                Working across digital and traditional mediums, exploring themes of identity,
+                nature, and the surreal.
+              </p>
+            </div>
           </div>
-        </div>
 
-        {/* Links Section */}
-        <div
-          className="mb-6"
-          onMouseEnter={() => setLinksOpen(true)}
-          onMouseLeave={() => setLinksOpen(false)}
-          onClick={() => setLinksOpen(!linksOpen)}
-        >
-          <h4 className="text-sm font-bold uppercase tracking-widest cursor-pointer hover:text-[#00deff] transition-colors duration-300">
-            Links
-          </h4>
-          <div
-            className={`overflow-hidden transition-all duration-700 ease-out ${
-              linksOpen ? 'max-h-[500px] opacity-100 mt-3' : 'max-h-0 opacity-0'
-            }`}
-          >
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a
-                  href="https://instagram.com/kristian.talley"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#00deff] transition-colors duration-300"
-                >
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://design.kristiantalley.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#00deff] transition-colors duration-300"
-                >
-                  Web dev portfolio
-                </a>
-              </li>
-               <li>
-                <a
-                  href="https://github.com/kttalley/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#00deff] transition-colors duration-300"
-                >
-                  Github
-                </a>
-              </li>
-              
-
-              <li>
-                <a
-                  href="mailto:contact@kristiantalley.com"
-                  className="hover:text-[#00deff] transition-colors duration-300"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* Medium Section with filter links */}
-        <div
-          className="mb-6"
-          onMouseEnter={() => setMediumOpen(true)}
-          onMouseLeave={() => setMediumOpen(false)}
-          onClick={() => setMediumOpen(!mediumOpen)}
-        >
-          <h4 className="text-sm font-bold uppercase tracking-widest cursor-pointer hover:text-[#00deff] transition-colors duration-300">
-            Medium
-          </h4>
-          <div
-            className={`overflow-hidden transition-all duration-700 ease-out ${
-              mediumOpen ? 'max-h-[500px] opacity-100 mt-3' : 'max-h-0 opacity-0'
-            }`}
-          >
-            <ul className="space-y-2 text-sm">
-              {mediumsList.map(medium => (
-                <li key={medium}>
+          {/* Medium (Accordion) */}
+          <div className="mb-2">
+            <button
+              onClick={() => setMediumOpen(!mediumOpen)}
+              className="w-full flex items-center justify-between text-sm font-bold uppercase tracking-widest cursor-pointer hover:text-[#00deff] transition-colors duration-300 py-1"
+            >
+              <span>Medium</span>
+              <CarrotIcon className={mediumOpen ? 'rotate-180' : ''} />
+            </button>
+            <div
+              className={`overflow-hidden transition-all duration-500 ease-out ${
+                mediumOpen ? 'max-h-[500px] opacity-100 mt-2' : 'max-h-0 opacity-0'
+              }`}
+            >
+              <ul className="space-y-2 text-sm">
+                {mediumsList.map(medium => (
+                  <li key={medium}>
+                    <Link
+                      to={`/tagged/${medium}`}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`capitalize transition-colors duration-300 ${
+                        currentMedium === medium
+                          ? 'text-[#00deff]'
+                          : 'hover:text-[#00deff]'
+                      }`}
+                    >
+                      {medium}
+                    </Link>
+                  </li>
+                ))}
+                <li className="pt-2 border-t border-gray-200 mt-2">
                   <Link
-                    to={`/tagged/${medium}`}
+                    to="/"
                     onClick={() => setMobileMenuOpen(false)}
-                    className={`capitalize transition-colors duration-300 ${
-                      currentMedium === medium
+                    className={`transition-colors duration-300 ${
+                      location.pathname === '/' && !currentMedium
                         ? 'text-[#00deff]'
                         : 'hover:text-[#00deff]'
                     }`}
                   >
-                    {medium}
+                    All Works
                   </Link>
                 </li>
-              ))}
-              <li className="pt-2 border-t border-gray-200 mt-2">
-                <Link
-                  to="/"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`transition-colors duration-300 ${
-                    location.pathname === '/' && !currentMedium
-                      ? 'text-[#00deff]'
-                      : 'hover:text-[#00deff]'
-                  }`}
-                >
-                  All Works
-                </Link>
-              </li>
-            </ul>
+              </ul>
+            </div>
           </div>
-        </div>
+
+          {/* Store (Direct Link) */}
+          <Link
+            to="https://store.kristiantalley.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-sm font-bold uppercase tracking-widest cursor-pointer hover:text-[#00deff] transition-colors duration-300 py-1"
+          >
+            Store
+          </Link>
+
+          {/* Social Media (Accordion) */}
+          <div className="mt-2">
+            <button
+              onClick={() => setSocialOpen(!socialOpen)}
+              className="w-full flex items-center justify-between text-sm font-bold uppercase tracking-widest cursor-pointer hover:text-[#00deff] transition-colors duration-300 py-1"
+            >
+              <span>Social media</span>
+              <CarrotIcon className={socialOpen ? 'rotate-180' : ''} />
+            </button>
+            <div
+              className={`overflow-hidden transition-all duration-500 ease-out ${
+                socialOpen ? 'max-h-[300px] opacity-100 mt-2' : 'max-h-0 opacity-0'
+              }`}
+            >
+              <ul className="space-y-2 text-sm">
+                <li>
+                  <a
+                    href="https://instagram.com/kristian.talley"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#00deff] transition-colors duration-300"
+                  >
+                    Instagram
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://design.kristiantalley.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#00deff] transition-colors duration-300"
+                  >
+                    Web dev portfolio
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/kttalley/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#00deff] transition-colors duration-300"
+                  >
+                    Github
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Contact (Direct Link) */}
+          <Link
+            to="https://store.kristiantalley.com/contact"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="text-sm font-bold uppercase tracking-widest cursor-pointer hover:text-[#00deff] transition-colors duration-300 py-1"
+          >
+            Contact
+          </Link>
+        </nav>
 
         {/* Footer info */}
         <div className="mt-auto text-xs text-gray-400">
