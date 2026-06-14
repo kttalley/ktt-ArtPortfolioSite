@@ -1454,11 +1454,11 @@ const tumblrImages = [
   {
     id: 'archive-66802525508',
     src: '/tumblr/tumblr_mw63qgrB051qfchfvo1_r1_500.png',
-    title: 'Feed Me Jack: Anatoida',
+    title: 'Feed Me Jack: Anatolia',
     description: 'Album packaging art rendered in bold pen and ink: a suited, reptilian kaiju-like figure looms beside the disc, paired with hand-lettered band typography over a sketchy crosshatched ground.',
     date: '2013',
     mediums: ["illustration"],
-    alt: 'Feed Me Jack: Anatoida'
+    alt: 'Feed Me Jack: Anatolia'
   },
   {
     id: 'archive-66172506448',

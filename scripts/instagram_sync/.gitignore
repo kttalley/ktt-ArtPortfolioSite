@@ -7,3 +7,5 @@ __pycache__/
 .ig_session
 .session
 *.session
+.cookies.txt
+cookies.txt

@@ -112,11 +112,16 @@ export const tumblrWorks = tumblrImagesRaw.map((img, index) => ({
 export const instagramWorks = instagramImagesRaw.map((img, index) => ({
   id: img.id,
   src: img.src,
+  // Full carousel for multi-image posts; falls back to the single cover image.
+  images: img.images && img.images.length ? img.images : [img.src],
   title: img.title || `Recent Work ${index + 1}`,
-  description: 'Recent work from Instagram',
+  description: img.description || '', // empty for silent/untitled posts
   date: img.date || '',
-  mediums: [MEDIUMS.illustration], // Default medium
-  alt: img.alt || img.title || `Recent work ${index + 1}`
+  // Per-post medium tags when provided, else default to illustration.
+  mediums: img.mediums && img.mediums.length ? img.mediums : [MEDIUMS.illustration],
+  alt: img.alt || img.title || `Recent work ${index + 1}`,
+  // Optional store link — surfaces an "Available for purchase" CTA.
+  storeUrl: img.storeUrl || null
 }))
 
 // Combined artworks - featured art first, then Instagram (recent), then archive
