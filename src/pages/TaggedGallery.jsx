@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { getArtworksByMedium, MEDIUMS } from '../data/artworks'
 import MasonryGallery from '../components/MasonryGallery'
@@ -25,7 +26,8 @@ function TaggedGallery() {
     )
   }
 
-  const filteredArtworks = getArtworksByMedium(medium)
+  // Memoized per medium so the gallery only resets when the medium actually changes.
+  const filteredArtworks = useMemo(() => getArtworksByMedium(medium), [medium])
   const cap = medium.charAt(0).toUpperCase() + medium.slice(1)
 
   return (

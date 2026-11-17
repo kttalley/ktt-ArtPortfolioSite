@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link, useLocation } from 'react-router-dom'
 import { getArtworkById, allArtworks } from '../data/artworks'
+import { IS_SERVER } from '../env'
 
 function ArtworkDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
-  const [loaded, setLoaded] = useState(false)
-  const [artwork, setArtwork] = useState(null)
+  // Prerendered HTML shows the image straight away; the browser keeps its fade-in.
+  const [loaded, setLoaded] = useState(IS_SERVER)
+  // Look the artwork up immediately so prerendering (where effects don't run) has it.
+  const [artwork, setArtwork] = useState(() => getArtworkById(id) || null)
   const [slide, setSlide] = useState(0)
 
   // Track the gallery route we came from (stored in location state or default to home)

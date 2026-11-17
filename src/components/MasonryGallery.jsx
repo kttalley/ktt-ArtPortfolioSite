@@ -1,18 +1,24 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import Masonry from 'react-masonry-css'
 import InfiniteScroll from 'react-infinite-scroll-component'
+import { IS_SERVER } from '../env'
 
 function MasonryGallery({ artworks, title }) {
   const location = useLocation()
   const currentPath = location.pathname
-  const [displayedArtworks, setDisplayedArtworks] = useState([])
-  const [hasMore, setHasMore] = useState(true)
-  const [page, setPage] = useState(0)
   const artworksPerPage = 12
+  // Start with the first page already in state, so the prerendered HTML has artwork in it.
+  const [displayedArtworks, setDisplayedArtworks] = useState(() => artworks.slice(0, artworksPerPage))
+  const [hasMore, setHasMore] = useState(() => artworks.length > artworksPerPage)
+  const [page, setPage] = useState(() => (artworks.length > 0 ? 1 : 0))
 
-  // Reset when artworks change (e.g., when filtering by tag)
+  // Reset when artworks change (e.g., when filtering by tag). Skipped on first mount,
+  // where the initial state above is already right.
+  const lastArtworks = useRef(artworks)
   useEffect(() => {
+    if (lastArtworks.current === artworks) return
+    lastArtworks.current = artworks
     setDisplayedArtworks([])
     setPage(0)
     setHasMore(true)
@@ -96,7 +102,8 @@ function MasonryGallery({ artworks, title }) {
 }
 
 function ImageCard({ artwork, returnPath }) {
-  const [loaded, setLoaded] = useState(false)
+  // Prerendered HTML shows images straight away (no spinner, not faded out).
+  const [loaded, setLoaded] = useState(IS_SERVER)
   const [error, setError] = useState(false)
 
   if (error) {
